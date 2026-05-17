@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Back & Front CI
 
 on:
   push:
@@ -51,8 +51,11 @@ jobs:
             
         - name: Install dependencies
           run: npm ci
+          working-directory: front
+          
         - name: Run tests
-          run: npm run test
+          run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
+          working-directory: front
   
         - name: Upload Coverage Report
           uses: actions/upload-artifact@v4
