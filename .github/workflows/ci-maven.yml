@@ -31,7 +31,7 @@ jobs:
             cache: maven
             
         - name: Run tests & Sonar Analysis
-          run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Pcoverage
+          run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=xqal_Projet-10-Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD_back -Pcoverage
           working-directory: back
           env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -67,8 +67,6 @@ jobs:
 
         - name: SonarQube Scan
           uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 
-          with:
-            projectBaseDir: front
           env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
