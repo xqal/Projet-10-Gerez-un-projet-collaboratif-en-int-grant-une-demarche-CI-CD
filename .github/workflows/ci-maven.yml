@@ -65,6 +65,11 @@ jobs:
           run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
           working-directory: front
 
+        - name: Debug coverage
+          run: |
+              ls -R front/coverage
+              cat front/coverage/bobapp/lcov.info | head
+
         - name: SonarQube Scan
           uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 
           env:
