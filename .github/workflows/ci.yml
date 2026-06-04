@@ -9,11 +9,8 @@
 name: Back & Front CI
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch: 
 
 jobs:
   backend:
@@ -43,6 +40,12 @@ jobs:
             name: jacoco-report
             path: back/target/site/jacoco/
 
+        - name: Verify Docker Back Image
+          uses: docker/build-push-action@v7
+          with:
+            context: ./back
+            push: false
+
   frontend:
       runs-on: ubuntu-latest
   
@@ -66,11 +69,6 @@ jobs:
           run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
           working-directory: front
 
-        - name: Debug coverage
-          run: |
-              ls -R front/coverage
-              cat front/coverage/bobapp/lcov.info | head
-
         - name: SonarQube Scan
           uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 
           env:
@@ -81,4 +79,10 @@ jobs:
           with:
             name: frontend-report
             path: front/coverage/
+
+        - name: Verify Docker Back Image
+          uses: docker/build-push-action@v7
+          with:
+            context: ./front
+            push: false
 
