@@ -22,7 +22,7 @@ jobs:
       with:
         context: ./back
         push: true
-        tags: xqal/back:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/back:latest
 
   front-docker:
     runs-on: ubuntu-latest
